@@ -68,8 +68,9 @@ if (file):
     img_binaria = cv2.inRange(img_med, minimo, maximo)
     
     #dilatação
-    element_estr = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7,7))
-    img_process = cv2.dilate(img_binaria, element_estr, iterations = 1)
+    #element_estr = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7,7))
+    #img_process = cv2.dilate(img_binaria, element_estr, iterations = 1)
+    img_process = img_binaria	
     
     #adiciona borda
     img_borda = cv2.copyMakeBorder(img_process, 10, 10, 10, 10, cv2.BORDER_CONSTANT, None, value = 0)
