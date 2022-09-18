@@ -34,7 +34,7 @@ aspect_ratio = aspect_dict[aspect_choice]
 
 
 #se o arquivo existir o processamento de imagem começa
-if img_file:
+if file:
 	img = Image.open(img_file)
 
 	if not realtime_update:
