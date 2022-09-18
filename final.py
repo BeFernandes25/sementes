@@ -10,17 +10,18 @@ from PIL import Image
 st.title("Selecione a Imagem")
 
 #upload de arquivos de imagem
-img_file = st.file_uploader(label="Envie uma Imagem", type=['png','jpg', 'jpeg'])
-# usaremos essa variavel dps
-file = img_file
+file = st.file_uploader(label="Envie uma Imagem", type=['png','jpg', 'jpeg'])
+
 
 #gera check box para atualização em tempo real
 realtime_update = st.sidebar.checkbox("Atualização em Tempo Real", value=True)
 
+
 #cor do quadro de seleção
 box_color = st.sidebar.color_picker(label="Grupo de Cores", value='#0000FF')
 
-#radiobuttons sobre a proporsão da tela
+
+#radiobuttons para proporsão da tela
 aspect_choice = st.sidebar.radio(label="Proporção da Tela", options=["1:1","16:9", "4:3"])
 
 aspect_dict = {
@@ -31,7 +32,8 @@ aspect_dict = {
 
 aspect_ratio = aspect_dict[aspect_choice]
 
-# se o arquivo existir
+
+#se o arquivo existir o processamento de imagem começa
 if img_file:
 	img = Image.open(img_file)
 
@@ -65,12 +67,8 @@ if (file):
     #binarização por hsv
     minimo =(160, 10, 10)
     maximo =(180, 255, 255)
-    img_binaria = cv2.inRange(img_med, minimo, maximo)
-    
-    #dilatação
-    #element_estr = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7,7))
-    #img_process = cv2.dilate(img_binaria, element_estr, iterations = 1)
-    img_process = img_binaria	
+    img_process = cv2.inRange(img_med, minimo, maximo)
+ 
     
     #adiciona borda
     img_borda = cv2.copyMakeBorder(img_process, 10, 10, 10, 10, cv2.BORDER_CONSTANT, None, value = 0)
@@ -83,14 +81,13 @@ if (file):
     img[img <= 127] = 0
 
 
-
+    #definindo tamnho da imagem	
     altura  = img.shape[0]
     largura = img.shape[1]
-    #print ("altura  ",  altura)
-    #print ("largura ", largura)
-    #print ("pixels  ", altura*largura)
-    st.write (" ## Contando Sementes")
+    st.write (" ## Contando Sementes de Orquídea")
+	
 
+    #verifica pixels visinhos aos objetos
     def conheceVizinhanca(img, q, cont, visitado):
         while (q.qsize() > 0):
             pixel = q.get()
@@ -104,7 +101,8 @@ if (file):
                     q.put([x-1, y])
                     q.put([x  , y+1])
                     q.put([x  , y-1])
-
+    
+    #conta os objeos na imagem
     def contar(img):
         contador = 0
         visitado = img < 255 
