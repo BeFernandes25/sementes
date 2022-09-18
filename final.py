@@ -35,7 +35,7 @@ aspect_ratio = aspect_dict[aspect_choice]
 
 #se o arquivo existir o processamento de imagem começa
 if file:
-	img = Image.open(img_file)
+	img = Image.open(file)
 
 	if not realtime_update:
 		st.write("Duplo clique para cortar a imagem")
